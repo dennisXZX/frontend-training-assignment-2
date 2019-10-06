@@ -40,6 +40,7 @@ class Directory extends Component {
     ]
   }
 
+  // Helper function to generate all sections
   generateSections = () => {
     const { sections } = this.state
 
