@@ -10,7 +10,7 @@ const CustomButton = props => {
 
   return (
     <button
-      className={`${isGoogleSignIn ? 'google-sign-in' : ''} custom-button`}
+      className={`custom-button ${isGoogleSignIn ? 'google-sign-in' : ''}`}
       {...otherCustomButtonProps}
     >
       {children}
