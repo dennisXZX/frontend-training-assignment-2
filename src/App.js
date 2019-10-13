@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 import './App.css';
 import HomePage from './pages/homepage/homepage.component'
 import ShopPage from './pages/shop/shop.component'
@@ -7,15 +8,14 @@ import Header from './components/header/header.component'
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component'
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
+import { setCurrentUserAction } from './redux/user/user.actions'
 
 class App extends Component {
-  state = {
-    currentUser: null
-  }
-
   unsubscribeFromAuth  = null
 
   componentDidMount () {
+    const { setCurrentUser } = this.props
+
     // Create an open connection with Firebase to check auth state
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 
@@ -24,17 +24,13 @@ class App extends Component {
         const userRef = await createUserProfileDocument(userAuth)
 
         userRef.onSnapshot(snapshot => {
-          this.setState({
-            currentUser: {
-              id: snapshot.id,
-              ...snapshot.data()
-            }
+          setCurrentUser({
+            id: snapshot.id,
+            ...snapshot.data()
           })
         })
       } else {
-        this.setState({
-          currentUser: null
-        })
+        setCurrentUser(null)
       }
     })
   }
@@ -45,11 +41,9 @@ class App extends Component {
   }
 
   render () {
-    const { currentUser } = this.state
-
     return (
       <div>
-        <Header currentUser={currentUser} />
+        <Header />
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
@@ -60,4 +54,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUserAction(user))
+})
+
+export default connect(null, mapDispatchToProps)(App);
