@@ -7,8 +7,9 @@ import './header.styles.scss'
 
 import { auth } from '../../firebase/firebase.utils'
 import CartIcon from '../cart-icon/cart-icon.component'
+import CartDropdown from '../cart-dropdown/cart-dropdown.component'
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, hidden }) => {
   return (
     <div className='header'>
       <Link className='logo-container' to='/'>
@@ -23,6 +24,8 @@ const Header = ({ currentUser }) => {
         <Link className='option' to='/contact'>
           CONTACT
         </Link>
+
+        {/* show sign in or sign out button based on user signed in status */}
 
         {
           currentUser
@@ -43,15 +46,23 @@ const Header = ({ currentUser }) => {
         }
 
         <CartIcon />
-
       </div>
+
+      {/* hide or show the cart drop down menu based on hidden flag in the store */}
+
+      {
+        hidden
+          ? null
+          : <CartDropdown />
+      }
+
     </div>
   )
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = ({ user, cart }) => ({
+  currentUser: user.currentUser,
+  hidden: cart.hidden
 })
-
 
 export default connect(mapStateToProps)(Header)
