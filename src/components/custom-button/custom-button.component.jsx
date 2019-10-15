@@ -5,12 +5,18 @@ const CustomButton = props => {
   const {
     children,
     isGoogleSignIn,
+    inverted,
     ...otherCustomButtonProps
   } = props
 
+  const buttonStyle = `
+    custom-button 
+    ${inverted ? 'inverted' : ''}
+    ${isGoogleSignIn ? 'google-sign-in' : ''}
+  `
   return (
     <button
-      className={`custom-button ${isGoogleSignIn ? 'google-sign-in' : ''}`}
+      className={buttonStyle}
       {...otherCustomButtonProps}
     >
       {children}
