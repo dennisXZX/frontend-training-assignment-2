@@ -8,7 +8,7 @@ import Header from './components/header/header.component'
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component'
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
-import { setCurrentUserAction } from './redux/user/user.actions'
+import { setCurrentUser } from './redux/user/user.actions'
 
 class App extends Component {
   unsubscribeFromAuth  = null
@@ -68,7 +68,7 @@ const mapStateToProps = ({ user }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUserAction(user))
+  setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
