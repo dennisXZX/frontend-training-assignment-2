@@ -1,11 +1,11 @@
-export const addItemToCart = (currentCartItems, addedCartItem) => {
-  const existingCartItem = currentCartItems.find(cartItem => cartItem.id === addedCartItem.id)
+export const addItemToCart = (currentCartItems, newCartItem) => {
+  const existingCartItem = currentCartItems.find(cartItem => cartItem.id === newCartItem.id)
 
-  // If the addedCartItem is already in the cart, update the quantity
+  // If the newCartItem is already in the cart, update the quantity
   if (existingCartItem) {
     const updatedCartItems = currentCartItems.map(
       cartItem =>
-        cartItem.id === addedCartItem.id
+        cartItem.id === newCartItem.id
           ? { ...cartItem, quantity: cartItem.quantity + 1 }
           : cartItem
     )
@@ -13,6 +13,6 @@ export const addItemToCart = (currentCartItems, addedCartItem) => {
     return updatedCartItems
   }
 
-  // If the addedCartItem is currently not in the cart, add it to the cart with an initial quantity amount
-  return [...currentCartItems, { ...addedCartItem, quantity: 1 }]
+  // If the newCartItem is currently not in the cart, add it to the cart with an initial quantity amount
+  return [...currentCartItems, { ...newCartItem, quantity: 1 }]
 }
