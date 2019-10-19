@@ -16,3 +16,11 @@ export const addItemToCart = (currentCartItems, newCartItem) => {
   // If the newCartItem is currently not in the cart, add it to the cart with an initial quantity amount
   return [...currentCartItems, { ...newCartItem, quantity: 1 }]
 }
+
+export const clearItemsFromCart = (currentCartItems, itemToBeCleared) => {
+  const filteredCartItems = currentCartItems.filter(cartItem => {
+    return cartItem.id !== itemToBeCleared.id
+  })
+
+  return filteredCartItems
+}
