@@ -17,10 +17,24 @@ export const addItemToCart = (currentCartItems, newCartItem) => {
   return [...currentCartItems, { ...newCartItem, quantity: 1 }]
 }
 
-export const clearItemsFromCart = (currentCartItems, itemToBeCleared) => {
-  const filteredCartItems = currentCartItems.filter(cartItem => {
-    return cartItem.id !== itemToBeCleared.id
-  })
+export const removeItemFromCart = (currentCartItems, itemToBeRemoved) => {
+  const existingCartItem = currentCartItems.find(cartItem => cartItem.id === itemToBeRemoved.id)
 
-  return filteredCartItems
+  // If it's the last item, clear the item
+  if (existingCartItem.quantity === 1) {
+    return currentCartItems.filter(cartItem => cartItem.id !== itemToBeRemoved.id)
+  }
+
+  return currentCartItems.map(
+    cartItem =>
+      cartItem.id === cartItem.id
+       ? { ...cartItem, quantity: cartItem.quantity - 1 }
+       : cartItem
+  )
+}
+
+export const clearItemsFromCart = (currentCartItems, itemToBeCleared) => {
+  const updatedCartItems = currentCartItems.filter(cartItem => cartItem.id !== itemToBeCleared.id)
+
+  return updatedCartItems
 }
