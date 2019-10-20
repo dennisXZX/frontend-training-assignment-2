@@ -1,5 +1,5 @@
 import React from 'react'
-import './form-input.styles.scss'
+import { FormInputContainer, FormInputLabel, GroupContainer } from './form-input.styles'
 
 const FormInput = props => {
   const {
@@ -9,9 +9,8 @@ const FormInput = props => {
   } = props;
 
   return (
-    <div className='group'>
-      <input
-        className='form-input'
+    <GroupContainer>
+      <FormInputContainer
         onChange={handleChange}
         {...otherFormInputProps}
       />
@@ -19,13 +18,13 @@ const FormInput = props => {
       {
         label
           ? (
-            <label className={`${otherFormInputProps.value.length ? 'shrink' : ''} form-input-label`}>
+            <FormInputLabel className={props.value.length ? 'shrink' : ''}>
               {label}
-            </label>
+            </FormInputLabel>
           )
           : null
       }
-    </div>
+    </GroupContainer>
   )
 }
 

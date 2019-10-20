@@ -1,9 +1,14 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
+import {
+  BackgroundImageContainer,
+  ContentContainer,
+  ContentSubtitle,
+  ContentTitle,
+  MenuItemContainer
+} from './menu-item.styles'
 
-import './menu-item.styles.scss'
-
-const MenuItem = (props) => {
+const MenuItem = props => {
   const {
     history,
     imageUrl,
@@ -14,17 +19,20 @@ const MenuItem = (props) => {
   } = props
 
   return (
-    <div className={`menu-item ${size}`}
-         onClick={() => history.push(`${match.url}${linkUrl}`)}
+    <MenuItemContainer
+      size={size}
+      onClick={() => history.push(`${match.url}${linkUrl}`)}
     >
-      {/* background image for hover-scaling effect */}
-      <div className='background-image' style={{ backgroundImage: `url(${imageUrl})` }}></div>
+      <BackgroundImageContainer
+        className='background-image'
+        imageUrl={imageUrl}
+      />
 
-      <div className="content">
-        <h1 className="title">{title.toUpperCase()}</h1>
-        <span className="subtitle">SHOP NOW</span>
-      </div>
-    </div>
+      <ContentContainer className='content'>
+        <ContentTitle>{title.toUpperCase()}</ContentTitle>
+        <ContentSubtitle>SHOP NOW</ContentSubtitle>
+      </ContentContainer>
+    </MenuItemContainer>
   )
 }
 
