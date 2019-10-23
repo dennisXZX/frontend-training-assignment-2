@@ -14,6 +14,27 @@ const config = {
 
 firebase.initializeApp(config)
 
+export const convertCollectionsSnapshotToMap = collections => {
+  const transformedCollection = collections.docs.map(doc => {
+    const { title, items } = doc.data()
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items
+    }
+  })
+
+  const reducedCollection = transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection
+
+    return accumulator
+  }, {})
+
+  return reducedCollection
+}
+
 // Create auth and firestore instances
 export const auth = firebase.auth()
 export const firestore = firebase.firestore()
