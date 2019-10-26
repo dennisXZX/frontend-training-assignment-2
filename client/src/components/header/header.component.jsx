@@ -23,10 +23,6 @@ const Header = ({ currentUser, hidden }) => {
           SHOP
         </OptionLink>
 
-        <OptionLink to='/contact'>
-          CONTACT
-        </OptionLink>
-
         {/* show sign in or sign out button based on user signed in status */}
 
         {
